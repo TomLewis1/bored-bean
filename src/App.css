@@ -1,0 +1,31 @@
+/* main content */
+.main-content {
+	background-color: #252019;
+	min-height: 80vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: #fff;
+}
+
+/* header + footer */
+.header-main, .footer-main {
+	display: flex;
+	width: 100%;
+	color: #fff;
+	background-color: #ff6e2f;
+	height: 10vh;
+}
+.footer-title {
+	font-size: 1.5em;
+	margin: auto;
+}
+.header-title {
+	display: flex;
+	font-weight: bold;
+	font-size: 2em;
+	align-items: center;
+	padding-left: 5%;
+}

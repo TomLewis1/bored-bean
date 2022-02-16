@@ -1,0 +1,6 @@
+/* paragraphs */
+.activity-paragraph {
+	display: flex;
+	width: 65%;
+	text-align: center;
+}
