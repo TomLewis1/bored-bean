@@ -47,6 +47,12 @@ export default function App() {
 		getAPI();
 	},[])
 
+	//Run api call on load
+	useEffect(() => {
+		//Hide button if all or none selected
+		setButtonShow((activityTypes.length === selectedActivityTypes.length || selectedActivityTypes.length === 0) ? false : true);
+	},[selectedActivityTypes])
+
 	//Add/Remove activity types
 	const changeActivityTypes = (e) => {
 		let activityValue = e.target.value;
@@ -65,16 +71,6 @@ export default function App() {
 				}));
 			}
 		}
-
-		//show/hide buttons
-		console.log("All types "+activityTypes.length);
-		console.log("Selected types "+selectedActivityTypes.length);
-		if(activityTypes.length === selectedActivityTypes.length || selectedActivityTypes.length === 0){
-			setButtonShow(false);
-		} else {
-			setButtonShow(true);
-		}
-
 	}
 
 	if (error) {
