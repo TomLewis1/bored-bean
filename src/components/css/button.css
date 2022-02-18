@@ -15,10 +15,10 @@
 
 .activity-button {
 	color:#fff;
-	background-color: #ff6e2f;
+	background-color: var(--theme-color);
 }
 .activity-button-secondary {
-	color: #ff6e2f;
+	color: var(--theme-color);
 	background-color: #fff;
 }
 
@@ -29,7 +29,7 @@
 	border-color: #fff;
 }
 .activity-button-secondary:hover{
-	border-color: #ff6e2f;
+	border-color: var(--theme-color);
 }
 
 .button-container {

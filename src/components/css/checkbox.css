@@ -30,10 +30,10 @@ input[type="checkbox"] {
 	background-color: #fff;
 	margin: 0;
 	font: inherit;
-	color: #ff6e2f;
+	color: var(--theme-color);
 	width: 1.15em;
 	height: 1.15em;
-	border: 0.15em solid #ff6e2f;
+	border: 0.15em solid var(--theme-color);
 	border-radius: 0.15em;
 	transform: translateY(-0.075em);
 	display: flex;
@@ -45,8 +45,8 @@ input[type="checkbox"]::before {
 	margin: auto;
 	transform: scale(0);
 	transition: 120ms transform ease-in-out;
-	box-shadow: inset 1em 1em #ff6e2f;
-	background-color: #ff6e2f;
+	box-shadow: inset 1em 1em var(--theme-color);
+	background-color: var(--theme-color);
 	clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 input[type="checkbox"]:checked::before {

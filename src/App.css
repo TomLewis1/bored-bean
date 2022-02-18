@@ -1,3 +1,7 @@
+:root{
+	--theme-color:#FF6E2F;
+}
+
 /* main content */
 .main-content {
 	background-color: #252019;
@@ -11,11 +15,22 @@
 }
 
 /* header + footer */
+.header-content, .footer-content{
+	display: flex;
+	background-color: var(--theme-color);
+	align-items: center;
+	width: 90%;
+	padding: 0 5% 0 5%;
+}
+.header-content {
+	justify-content: space-between;
+}
+.footer-content {
+	justify-content: center;
+}
 .header-main, .footer-main {
 	display: flex;
-	width: 100%;
 	color: #fff;
-	background-color: #ff6e2f;
 	height: 10vh;
 }
 .footer-title {

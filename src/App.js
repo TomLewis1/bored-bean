@@ -6,6 +6,9 @@ import Button from './components/button';
 import Header from './components/header';
 import Footer from './components/footer';
 import Paragraph from './components/paragraph';
+import Image from './components/image';
+import { TwitterPicker } from 'react-color';
+import ColourWheel from './img/color-wheel-icon.png';
 
 export default function App() {
 
@@ -18,6 +21,8 @@ export default function App() {
 	const [items, setItems] = useState({});
 	const [selectedActivityTypes, setActivityType] = useState(activityTypes);
 	const [showSelectButton, setButtonShow] = useState(false);
+	const [showColourPicker, setColourShow] = useState(false);
+	const [themeColour, setThemeColour] = useState("var(--theme-color)");
 
 	//Run API func
 	const getAPI = (searchType) => {
@@ -73,6 +78,17 @@ export default function App() {
 		}
 	}
 
+	//Show/hide colour picker
+	const toggleColourPicker = () => {
+		setColourShow(!showColourPicker);
+	}
+
+	//Change colors
+	const changeColours = (e) => {
+		setThemeColour(e.hex);
+		document.documentElement.style.setProperty('--theme-color',e.hex);
+	}
+
 	if (error) {
 		return <div>Error: {error.message}</div>;
 	} else if (!isLoaded) {
@@ -80,8 +96,18 @@ export default function App() {
 	} else {
 		return (
 			<>
-				<div>
+				<div className="header-content">
 					<Header text="BORED."/>
+					
+					<div style={{position:'relative'}}>
+						<Image src={ColourWheel} className="colour-wheel" onClick={toggleColourPicker} />
+						{showColourPicker &&
+						<div style={{position:'absolute',right:4,top:35,zIndex:2}}>
+							<div style={{position:'fixed',top:0,right:0,bottom:0,left:0}} onClick={toggleColourPicker} />
+							<TwitterPicker triangle="top-right" color={themeColour} onChangeComplete={changeColours} />
+						</div>}
+					</div>
+
 				</div>
 
 				<div className="main-content">
@@ -106,7 +132,7 @@ export default function App() {
 
 				</div>
 
-				<div>
+				<div className="footer-content">
 					<Footer text="Created by Tom"/>
 				</div>
 			</>

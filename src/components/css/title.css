@@ -3,7 +3,7 @@
 	font-size: 1.8em;
 	font-weight: bold;
 	text-align: center;
-	text-decoration: underline #ff6e2f 3px;
+	text-decoration: underline var(--theme-color) 3px;
 	margin: 0;
 }
 .activity-title {
