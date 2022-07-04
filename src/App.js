@@ -27,7 +27,7 @@ export default function App() {
 	//Run API func
 	const getAPI = (searchType) => {
 
-		let APIurl = 'http://www.boredapi.com/api/activity/';
+		let APIurl = 'https://www.boredapi.com/api/activity/';
 		if(searchType === 'selected'){
 			let getType = selectedActivityTypes[Math.floor(Math.random()*selectedActivityTypes.length)]
 			APIurl += ((getType) ? `?type=${getType}` : '');
