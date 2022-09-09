@@ -27,7 +27,7 @@ export default function App() {
 	//Run API func
 	const getAPI = (searchType) => {
 
-		let APIurl = 'https://www.boredapi.com/api/activity/';
+		let APIurl = 'http://www.boredapi.com/api/activity/';
 		if(searchType === 'selected'){
 			let getType = selectedActivityTypes[Math.floor(Math.random()*selectedActivityTypes.length)]
 			APIurl += ((getType) ? `?type=${getType}` : '');
@@ -43,6 +43,7 @@ export default function App() {
 				(error) => {
 					setIsLoaded(true);
 					setError(error);
+					console.log("Error:",error.message);
 				}
 			)
 	}
@@ -50,13 +51,13 @@ export default function App() {
 	//Run api call on load
 	useEffect(() => {
 		getAPI();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
 
-	//Run api call on load
 	useEffect(() => {
 		//Hide button if all or none selected
 		setButtonShow((activityTypes.length === selectedActivityTypes.length || selectedActivityTypes.length === 0) ? false : true);
-	},[selectedActivityTypes])
+	},[activityTypes.length, selectedActivityTypes])
 
 	//Add/Remove activity types
 	const changeActivityTypes = (e) => {
@@ -89,53 +90,60 @@ export default function App() {
 		document.documentElement.style.setProperty('--theme-color',e.hex);
 	}
 
-	if (error) {
-		return <div>Error: {error.message}</div>;
-	} else if (!isLoaded) {
-		return <div>Loading...</div>;
-	} else {
-		return (
-			<>
-				<div className="header-content">
-					<Header text="BORED."/>
-					
-					<div style={{position:'relative'}}>
-						<Image src={ColourWheel} className="colour-wheel" onClick={toggleColourPicker} />
-						{showColourPicker &&
-						<div style={{position:'absolute',right:4,top:35,zIndex:2}}>
-							<div style={{position:'fixed',top:0,right:0,bottom:0,left:0}} onClick={toggleColourPicker} />
-							<TwitterPicker triangle="top-right" color={themeColour} onChangeComplete={changeColours} />
-						</div>}
-					</div>
-
+	return (
+		<>
+			<div className="header-content">
+				<Header text="BORED."/>
+				
+				<div style={{position:'relative'}}>
+					<Image src={ColourWheel} className="colour-wheel" onClick={toggleColourPicker} />
+					{showColourPicker &&
+					<div style={{position:'absolute',right:4,top:35,zIndex:2}}>
+						<div style={{position:'fixed',top:0,right:0,bottom:0,left:0}} onClick={toggleColourPicker} />
+						<TwitterPicker triangle="top-right" color={themeColour} onChangeComplete={changeColours} />
+					</div>}
 				</div>
 
-				<div className="main-content">
+			</div>
 
-					<Title text="Are you bored?" className="main-title"/>
+			<div className="main-content">
+
+				<Title text="Are you bored?" className="main-title"/>
+
+				{isLoaded
+					?
 					<Title text={items.activity} className="activity-title"/>
+					:
+					<Title text="Loading..." className="activity-title"/>
+				}
 
-					<Paragraph text="Select your desired area(s) below and we will provide you with suggestions on how to fight the boredum." className="activity-paragraph" />
+				{!error
+					?
+					<>
+						<Paragraph text="Select your desired area(s) below and we will provide you with suggestions on how to fight the boredum." className="activity-paragraph" />
 
-					<div className="type-container">
-						{activityTypes.map((type) =>
-							<div className="type-item">
-							<Checkbox value={type} setChecked={true} clickAction={changeActivityTypes} key={type} />
-							</div>
-						)}
-					</div>
+						<div className="type-container">
+							{activityTypes.map((type) =>
+								<div className="type-item">
+								<Checkbox value={type} setChecked={true} clickAction={changeActivityTypes} key={type} />
+								</div>
+							)}
+						</div>
 
-					<div className="button-container">
-						{showSelectButton && (<Button className="activity-button-secondary" clickAction={() => getAPI('selected')} text="Search Selected" />)}
-						<Button className="activity-button" clickAction={() => getAPI('all')} text="Search All" />
-					</div>
+						<div className="button-container">
+							{showSelectButton && (<Button className="activity-button-secondary" clickAction={() => getAPI('selected')} text="Search Selected" />)}
+							<Button className="activity-button" clickAction={() => getAPI('all')} text="Search All" />
+						</div>
+					</>
+					:
+					<Paragraph text="Sorry, there has been an error fetching data. Please try again later." className="activity-paragraph" />
+				}
 
-				</div>
+			</div>
 
-				<div className="footer-content">
-					<Footer text="Created by Tom"/>
-				</div>
-			</>
-		);
-	}
+			<div className="footer-content">
+				<Footer text="Created by Tom"/>
+			</div>
+		</>
+	);
 }
